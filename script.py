@@ -59,35 +59,6 @@ def normalize_url(url: str) -> str:
 
 
 def download_audio(url: str, is_playlist: bool, media: str = "mp3") -> list[Path]:
-    """
-    Download best audio (YouTube, SoundCloud, or anything else yt-dlp
-    supports) and convert directly to MP3 with metadata and an embedded
-    cover image.
-
-    Cover embedding relies entirely on yt-dlp's own postprocessor chain
-    (no manual ffmpeg pass afterwards) so the order below matters:
-
-      1. FFmpegExtractAudio        -> pull out audio, encode to mp3
-      2. FFmpegThumbnailsConvertor -> convert .webp/.png covers to .jpg,
-                                       since ID3 tags in MP3 files only
-                                       reliably support JPG/PNG, and a lot
-                                       of thumbnails (especially YouTube's
-                                       default ones) come back as webp
-      3. FFmpegMetadata            -> write title/artist/etc. id3 tags
-      4. EmbedThumbnail            -> embed the (now-jpg) cover LAST
-
-    EmbedThumbnail must run AFTER FFmpegMetadata, not before. FFmpegMetadata
-    rewrites the file to add tags and only maps the audio stream -- if it
-    runs after the cover is embedded, it silently strips the attached-
-    picture stream back out again. This was the actual reason covers
-    weren't showing up in players: the thumbnail WAS being embedded, then
-    immediately deleted by the metadata step right after.
-
-    Do NOT also pass the legacy `writethumbnail`/`embedthumbnail`/
-    `addmetadata` shorthand options alongside an explicit postprocessors
-    list -- they duplicate what's already in the list and can run out of
-    order.
-    """
     url = normalize_url(url)
     DOWNLOAD_DIR.mkdir(parents=True, exist_ok=True)
     final_paths: list[Path] = []
