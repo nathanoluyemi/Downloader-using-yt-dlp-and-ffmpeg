@@ -26,7 +26,7 @@ def get_download_dir() -> Path:
 DOWNLOAD_DIR = Path("downloads").resolve()
 
 # Set this to "chrome", "firefox", "edge", "brave", etc. if you need to
-# download private/unlisted/age-restricted playlists or videos -- yt-dlp
+# download private/unlisted playlists or videos -- yt-dlp
 # will reuse your browser's login cookies. Leave as None otherwise.
 COOKIES_FROM_BROWSER = None
 
