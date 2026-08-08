@@ -150,7 +150,7 @@ def make_mp3(wav_path: Path) -> Path:
 
 if __name__ == "__main__":
     print("╔═ * . · : · . ✧ ✦ ✧ . · : · . * ═╗")
-    print("Kitai's Downloader     (˶˃ ᵕ ˂˶)♡")
+    print("           Media Downloader          ")
     print("╚═ * . · : · . ✧ ✦ ✧ . · : · . * ═╝")
     print()
     print()
@@ -158,7 +158,7 @@ if __name__ == "__main__":
     print()
 
     if not shutil.which("ffmpeg"):
-        print("ffmpeg is required (for WAV/MP3 conversion) so go download it and check it's in the PATH ˚ ༘♡ ⋆｡˚ ❀")
+        print("ffmpeg is required (for WAV/MP3 conversion) so go download it and check it's in the PATH ")
         raise SystemExit(1)
 
     DOWNLOAD_DIR = get_download_dir()
@@ -173,17 +173,17 @@ if __name__ == "__main__":
             print(f"✦ Download format set to: {media.upper()}")
 
         url = input(
-            "-ˋˏ ༻❁༺ ˎˊ- Enter YouTube or SoundCloud URL (or press Enter/q to quit): "
+            " Enter YouTube or SoundCloud URL (or press Enter/q to quit): "
         ).strip()
         if not url or url.lower() in {"q", "quit", "exit"}:
-            print("✦ Goodbye! ♡")
+            print(" Goodbye! ")
             break
 
         is_playlist_input = input("Is this a playlist / SoundCloud set? (y/n, default n): ").strip().lower()
         is_playlist = is_playlist_input == "y"
 
         print(f"\nSaving files to: {DOWNLOAD_DIR}")
-        print("✦ Downloading and converting to MP3 with metadata and embedded cover art...")
+        print(" Downloading and converting to MP3 with metadata and embedded cover art...")
 
         start_time = time.time()
         mp3_files = download_audio(url, is_playlist, media)
@@ -194,4 +194,4 @@ if __name__ == "__main__":
         for mp3 in mp3_files:
             print(f"  {mp3}")
 
-        print("\n✦ Ready for the next download!\n")
+        print("\n Ready for the next download!\n")
